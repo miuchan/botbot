@@ -1,0 +1,1 @@
+declare module "nodemailer-sendcloud-transport" { let anything: any; export = anything }

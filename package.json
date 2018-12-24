@@ -1,0 +1,46 @@
+{
+   "name": "shuzhai",
+   "version": "0.0.1",
+   "main": "index.js",
+   "author": "miu <k737566@gmail.com>",
+   "license": "MIT",
+   "scripts": {
+      "start": "ts-node src/index.ts",
+      "watch": "nodemon --watch 'src/**/*' -e ts --exec 'ts-node' ./src/index.ts --inspect",
+      "clean": "node_modules/.bin/rimraf dist"
+   },
+   "dependencies": {
+      "@types/nodemailer": "^4.6.5",
+      "bcrypt": "^3.0.2",
+      "bluebird": "^3.5.3",
+      "debug": "^4.1.0",
+      "errorjs": "^1.0.2",
+      "koa": "^2.6.2",
+      "koa-bodyparser": "^4.2.1",
+      "koa-multer": "^1.0.2",
+      "koa-router": "^7.4.0",
+      "lodash": "^4.17.11",
+      "mysql": "^2.14.1",
+      "nanoid": "^2.0.0",
+      "nodemailer": "^4.7.0",
+      "nodemailer-sendcloud-transport": "^0.0.2",
+      "reflect-metadata": "^0.1.10",
+      "routing-controllers": "^0.7.7",
+      "typedi": "^0.8.0",
+      "typeorm": "0.2.9"
+   },
+   "devDependencies": {
+      "@types/bcrypt": "^3.0.0",
+      "@types/bluebird": "^3.5.25",
+      "@types/debug": "^0.0.31",
+      "@types/koa": "^2.0.47",
+      "@types/koa-bodyparser": "^4.2.1",
+      "@types/koa-router": "^7.0.35",
+      "@types/lodash": "^4.14.119",
+      "@types/node": "^8.0.29",
+      "nodemon": "^1.18.9",
+      "rimraf": "^2.6.2",
+      "ts-node": "3.3.0",
+      "typescript": "2.5.2"
+   }
+}
