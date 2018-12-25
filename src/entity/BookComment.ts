@@ -16,6 +16,6 @@ export class BookComment {
 	@UpdateDateColumn({type: "timestamp"})
   updatedAt: Date;
 
-  @ManyToOne(type => Book, book => book.comments)
+  @ManyToOne(() => Book, book => book.comments)
   book: Book;
 }

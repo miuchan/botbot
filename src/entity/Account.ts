@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, RelationCount, JoinTable } from 'typeorm';
 import { AccountToken } from './AccountToken';
 import { Profile } from './Profile';
 import { Status } from './Status';
@@ -36,13 +36,26 @@ export class Account {
 	@UpdateDateColumn({type: "timestamp"})
 	updatedAt: Date;
 	
-	@OneToMany(type => AccountToken, accountToken => accountToken.account)
+	@OneToMany(() => AccountToken, accountToken => accountToken.account)
 	accountTokens: AccountToken[];
 
-	@OneToOne(type => Profile, { eager: true })
+	@OneToOne(() => Profile, { eager: true })
 	@JoinColumn()
 	profile: Profile;
 
-	@OneToMany(type => Status, status => status.account)
-  status: Status[];
+	@OneToMany(() => Status, status => status.account)
+	status: Status[];
+	
+	@ManyToMany(() => Account, account => account.following, { cascade: true })
+  @JoinTable()
+  followers: Account[];
+
+  @ManyToMany(() => Account, account => account.followers)
+  following: Account[];
+
+  @RelationCount((account: Account) => account.followers)
+  followersCount: number;
+  
+  @RelationCount((account: Account) => account.following)
+  followingCount: number;
 }

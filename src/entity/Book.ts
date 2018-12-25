@@ -29,6 +29,6 @@ export class Book {
 	@UpdateDateColumn({type: "timestamp"})
   updatedAt: Date;
 
-  @OneToMany(type => BookComment, comment => comment.book)
+  @OneToMany(() => BookComment, comment => comment.book)
   comments: BookComment[];
 }

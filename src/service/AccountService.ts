@@ -47,4 +47,20 @@ export class AccountService {
 
     return _.pick(account, ['id', 'email', 'profile']) as Account;
   }
+
+  public async follow(account: Account, accountId: number): Promise<Account> {
+    const reqAccount = await this.accountRepository.findOne({ id: account.id }, { relations: ["following"] })
+    const accountToFollow = await this.accountRepository.findOne({ id: accountId })
+    reqAccount.following.push(accountToFollow)
+    return this.accountRepository.save(reqAccount)
+  }
+
+  public async unfollow(account: Account, accountId: number): Promise<DeleteResult> {
+    return this.accountRepository
+    .createQueryBuilder()
+    .delete()
+    .from('account_followers_account')
+    .where('accountId_1 = :id', { id: accountId })
+    .execute();
+  }
 }

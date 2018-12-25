@@ -1,9 +1,10 @@
 import * as Koa from 'koa';
-import { JsonController, UseBefore, Param, Ctx, BodyParam, Get, Post } from "routing-controllers";
+import { JsonController, UseBefore, Param, Ctx, BodyParam, Get, Post, Delete } from 'routing-controllers';
 import { Service } from 'typedi';
 import { AccountService } from '../service/AccountService';
 import { AccountTokenService } from '../service/AccountTokenService';
 import { MailService } from '../service/MailService';
+import { AuthMiddleware } from '../middleware/AuthMiddleware';
 
 @JsonController('/account')
 @Service()
@@ -68,5 +69,25 @@ export class AccountController {
       const token = await this.accountTokenService.createSession(account)
       ctx.cookies.set(`user_token`, JSON.stringify(token))
       return { success: true, message: 'Signin successfully.', displayMessage: '登录成功。', data: token }
+    }
+
+    @Post('/follow')
+    @UseBefore(AuthMiddleware)
+    async follow(
+      @BodyParam('accountId', { required: true }) accountId: number,
+      @Ctx() ctx: Koa.Context
+    ) {
+      await this.accountService.follow(ctx.account, accountId)
+      return { success: true, message: 'Follow successfully.', displayMessage: '关注成功。' }
+    }
+
+    @Delete('/follow')
+    @UseBefore(AuthMiddleware)
+    async unfollow(
+      @BodyParam('accountId', { required: true }) accountId: number,
+      @Ctx() ctx: Koa.Context
+    ) {
+      await this.accountService.unfollow(ctx.account, accountId)
+      return { success: true, message: 'Unfollow successfully.', displayMessage: '取消关注成功。' }
     }
 }

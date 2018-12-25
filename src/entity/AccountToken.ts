@@ -20,6 +20,6 @@ export class AccountToken {
 	@UpdateDateColumn({type: "timestamp"})
 	updatedAt: Date;
 
-  @ManyToOne(type => Account, account => account.accountTokens)
+  @ManyToOne(() => Account, account => account.accountTokens)
   account: Account; 
 }

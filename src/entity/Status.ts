@@ -16,6 +16,6 @@ export class Status {
 	@UpdateDateColumn({type: "timestamp"})
   updatedAt: Date;
 
-  @ManyToOne(type => Account, account => account.status)
+  @ManyToOne(() => Account, account => account.status)
   account: Account;
 }
