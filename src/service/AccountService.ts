@@ -60,7 +60,7 @@ export class AccountService {
     .createQueryBuilder()
     .delete()
     .from('account_followers_account')
-    .where('accountId_1 = :id', { id: accountId })
+    .where('accountId_1 = :accountId AND accountId_2 = :id', { accountId, id: account.id })
     .execute();
   }
 }
